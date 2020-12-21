@@ -1,9 +1,13 @@
 import Footer from "./components/Footer/footer";
+import Header from "./components/Header/header";
 import './App.css';
 
 function App() {
   return (
-    <Footer />
+    <>
+      <Header />
+      <Footer />
+    </>
   )
 }
 
