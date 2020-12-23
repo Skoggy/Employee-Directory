@@ -1,12 +1,13 @@
+import "./style.css";
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'
+import API from "../utils/API"
 
+function Card() {
 
-function DataFetching() {
     const [users, setUsers] = useState([])
 
     useEffect(() => {
-        axios.get("https://randomuser.me/api/?inc=gender,name,email,phone,picture&results=10&nat=US")
+        API.getUsers()
             .then(res => {
                 console.log(res)
                 setUsers(res.data.results)
@@ -15,8 +16,8 @@ function DataFetching() {
                 console.log(err)
             })
     }, [])
-    return (
 
+    return (
         <div>
 
             {users.map(user =>
@@ -26,13 +27,13 @@ function DataFetching() {
                     </div>
                     <div className="card-content">
                         <h3 key={user.id}>{user.name.first} {user.name.last}</h3>
+                        <p>{user.gender}</p>
 
                     </div>
 
                 </div>)}
         </div>
-
-
-    )
+    );
 }
-export default DataFetching
+
+export default Card;
