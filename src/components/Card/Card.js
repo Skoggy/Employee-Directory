@@ -5,6 +5,8 @@ import API from "../utils/API"
 function Card() {
 
     const [users, setUsers] = useState([])
+    const [filter, setFilter] = useState('')
+    const [filteredUser, setFilterdUser] = useState([])
 
     useEffect(() => {
         API.getUsers()
@@ -28,6 +30,8 @@ function Card() {
                     <div className="card-content">
                         <h3 key={user.id}>{user.name.first} {user.name.last}</h3>
                         <p>{user.gender}</p>
+                        <p>{user.email}</p>
+                        <p>{user.phone}</p>
 
                     </div>
 
