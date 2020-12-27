@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import "./style.css";
 
 export default function FilterSelector() {
-    const [selected, useSelected] = useState[false]
+
+    const [isChecked, setIsChecked] = useState(false);
+
+    const selectFilter = () => {
+        setIsChecked(!isChecked);
+        //console.log(is_checked);
+    }
+    console.log(isChecked);
     return (
         <>
-            <h1>Please select if you would like employees arranged alphabetically</h1>
-            <form>
-                <div className="form-check">
-                    <input className="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1" />
-                    <label className="form-check-label">
-                        Name
-  </label>
-                    <br></br>
-                    <input id="submit-btn" type="submit" />
-                </div>
-            </form >
+            <h3>Select if you would like your employees ordered alphabetically</h3>
+            <div>
+                <input checked={isChecked} onChange={selectFilter} type="checkbox" /><label>Name</label>
+            </div>
         </>
 
     );
