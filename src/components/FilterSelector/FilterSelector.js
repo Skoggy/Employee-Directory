@@ -1,28 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.css";
 
 export default function FilterSelector() {
+    const [selected, useSelected] = useState[false]
     return (
         <>
-            <h1>Please select how you wold like to display your employees</h1>
+            <h1>Please select if you would like employees arranged alphabetically</h1>
             <form>
                 <div className="form-check">
-                    <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
-                    <label className="form-check-label" for="exampleRadios1">
+                    <input className="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1" />
+                    <label className="form-check-label">
                         Name
   </label>
-                </div>
-                <div className="form-check">
-                    <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
-                    <label className="form-check-label" for="exampleRadios1">
-                        Gender
-  </label>
-                </div>
-                <div className="form-check">
-                    <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" />
-                    <label className="form-check-label" for="exampleRadios2">
-                        Area Code
-  </label>
+                    <br></br>
                     <input id="submit-btn" type="submit" />
                 </div>
             </form >

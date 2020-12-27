@@ -1,12 +1,13 @@
 import "./style.css";
 import React, { useEffect, useState } from 'react';
 import API from "../utils/API"
+import FilterSelector from '../FilterSelector/FilterSelector'
 
 function Card() {
 
     const [users, setUsers] = useState([])
-    const [filter, setFilter] = useState('')
-    const [filteredUser, setFilterdUser] = useState([])
+    const [order, setOrder] = useState(false)
+    const [orderedUser, setOrderedUser] = useState([])
 
     useEffect(() => {
         API.getUsers()
@@ -18,6 +19,9 @@ function Card() {
                 console.log(err)
             })
     }, [])
+    useEffect(() => {
+        console.log("Box Checked")
+    })
 
     return (
         <div>
