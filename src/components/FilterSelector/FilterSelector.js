@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./style.css";
 
-export default function FilterSelector() {
+function FilterSelector() {
 
     const [isChecked, setIsChecked] = useState(false);
 
@@ -20,6 +20,7 @@ export default function FilterSelector() {
 
     );
 }
+export default FilterSelector
 
 
 
