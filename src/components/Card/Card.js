@@ -6,8 +6,8 @@ import API from "../utils/API"
 function Card() {
 
     const [users, setUsers] = useState([])
-    //const [order, setOrder] = useState(false)
-    // const [orderedUser, setOrderedUser] = useState([])
+    const [isCheckedAlpha, setIsCheckedAlpha] = useState(false);
+    const [reverseIsCheckedAlpha, setReverseIsCheckedAlpha] = useState(false)
 
     useEffect(() => {
         API.getUsers()
@@ -20,22 +20,33 @@ function Card() {
             })
     }, [])
 
-    const [isChecked, setIsChecked] = useState(false);
-
     const selectFilter = () => {
-        setIsChecked(!isChecked);
-        //console.log(is_checked);
-    }
-    console.log(isChecked);
+        setIsCheckedAlpha(!isCheckedAlpha)
 
-    if (isChecked === true) {
+    }
+    const selectReverseAlpha = () => {
+        setReverseIsCheckedAlpha(!reverseIsCheckedAlpha)
+
+    }
+
+    if (isCheckedAlpha === true) {
         users.sort((a, b) => a.name.first.localeCompare(b.name.first))
     }
+
+
+    if (reverseIsCheckedAlpha === true) {
+        users.sort((a, b) => b.name.first.localeCompare(a.name.first))
+    }
+
+
     return (
         <div>
             <h3>Select if you would like your employees ordered alphabetically</h3>
             <div>
-                <input checked={isChecked} onChange={selectFilter} type="checkbox" /><label>Name</label>
+                <input checked={isCheckedAlpha} onChange={selectFilter} type="checkbox" /><label>Ascending alphabetically</label>
+            </div>
+            <div>
+                <input checked={reverseIsCheckedAlpha} onChange={selectReverseAlpha} type="checkbox" /><label>Decending alphabetically</label>
             </div>
 
             {users.map(user =>

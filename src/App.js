@@ -13,7 +13,6 @@ function App() {
     <>
 
       <Header />
-
       <Wrapper>
         <Card />
       </Wrapper>
