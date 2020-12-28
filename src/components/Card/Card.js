@@ -1,13 +1,16 @@
 import "./style.css";
 import React, { useEffect, useState } from 'react';
 import API from "../utils/API"
-//import FilterSelector from '../FilterSelector/FilterSelector'
+
 
 function Card() {
 
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([]);
     const [isCheckedAlpha, setIsCheckedAlpha] = useState(false);
-    const [reverseIsCheckedAlpha, setReverseIsCheckedAlpha] = useState(false)
+    const [reverseIsCheckedAlpha, setReverseIsCheckedAlpha] = useState(false);
+    const [maleOnlyChecked, setMaleOnlyChecked] = useState(false);
+    const [femaleOnlyChecked, setFemleOnlyChecked] = useState(false);
 
     useEffect(() => {
         API.getUsers()
@@ -22,11 +25,15 @@ function Card() {
 
     const selectFilter = () => {
         setIsCheckedAlpha(!isCheckedAlpha)
-
     }
     const selectReverseAlpha = () => {
         setReverseIsCheckedAlpha(!reverseIsCheckedAlpha)
-
+    }
+    const selectMale = () => {
+        setMaleOnlyChecked(!maleOnlyChecked)
+    }
+    const selectFemale = () => {
+        setFemleOnlyChecked(!femaleOnlyChecked)
     }
 
     if (isCheckedAlpha === true) {
@@ -37,6 +44,27 @@ function Card() {
     if (reverseIsCheckedAlpha === true) {
         users.sort((a, b) => b.name.first.localeCompare(a.name.first))
     }
+    useEffect(() => {
+        if (maleOnlyChecked === true)
+
+            setUsers(users.filter((user) => user.gender === "male"))
+
+
+    }, [maleOnlyChecked])
+
+    useEffect(() => {
+        if (femaleOnlyChecked === true)
+
+            setUsers(users.filter((user) => user.gender === "female"))
+
+    }, [femaleOnlyChecked])
+
+    useEffect(() => {
+        if (femaleOnlyChecked === false && maleOnlyChecked === false) {
+            setUsers(users)
+        }
+    }, [!maleOnlyChecked, femaleOnlyChecked])
+
 
 
     return (
@@ -47,6 +75,12 @@ function Card() {
             </div>
             <div>
                 <input checked={reverseIsCheckedAlpha} onChange={selectReverseAlpha} type="checkbox" /><label>Decending alphabetically</label>
+            </div>
+            <div>
+                <input checked={maleOnlyChecked} onChange={selectMale} type="checkbox" /><label>Male Only</label>
+            </div>
+            <div>
+                <input checked={femaleOnlyChecked} onChange={selectFemale} type="checkbox" /><label>Female Only</label>
             </div>
 
             {users.map(user =>
