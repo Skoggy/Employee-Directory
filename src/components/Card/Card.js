@@ -6,17 +6,23 @@ import API from "../utils/API"
 function Card() {
 
     const [users, setUsers] = useState([]);
-    const [filteredUsers, setFilteredUsers] = useState([]);
     const [isCheckedAlpha, setIsCheckedAlpha] = useState(false);
     const [reverseIsCheckedAlpha, setReverseIsCheckedAlpha] = useState(false);
     const [maleOnlyChecked, setMaleOnlyChecked] = useState(false);
     const [femaleOnlyChecked, setFemleOnlyChecked] = useState(false);
+    const [maleArray, setMaleArray] = useState([]);
+    const [femaleArray, setFemaleArray] = useState([]);
+    const [allUsers, setAllUsers] = useState([]);
 
     useEffect(() => {
         API.getUsers()
             .then(res => {
                 console.log(res)
                 setUsers(res.data.results)
+                setFemaleArray(res.data.results)
+                setAllUsers(res.data.results)
+                setMaleArray(res.data.results)
+
             })
             .catch(err => {
                 console.log(err)
@@ -45,26 +51,26 @@ function Card() {
         users.sort((a, b) => b.name.first.localeCompare(a.name.first))
     }
     useEffect(() => {
-        if (maleOnlyChecked === true)
 
-            setUsers(users.filter((user) => user.gender === "male"))
-
-
-    }, [maleOnlyChecked])
-
-    useEffect(() => {
-        if (femaleOnlyChecked === true)
-
-            setUsers(users.filter((user) => user.gender === "female"))
-
-    }, [femaleOnlyChecked])
-
-    useEffect(() => {
-        if (femaleOnlyChecked === false && maleOnlyChecked === false) {
-            setUsers(users)
+        if (maleOnlyChecked === false && femaleOnlyChecked === false) {
+            setAllUsers(allUsers)
+            setUsers(allUsers)
         }
-    }, [!maleOnlyChecked, femaleOnlyChecked])
+        else if (maleOnlyChecked === true) {
+            setUsers(maleArray)
+            setMaleArray(maleArray.filter((user) => user.gender === "male"))
 
+            setUsers(maleArray)
+        }
+        else if (femaleOnlyChecked === true) {
+            setUsers(femaleArray)
+            setFemaleArray(femaleArray.filter((user) => user.gender === "female"))
+
+            setUsers(femaleArray)
+        }
+
+
+    }, [maleOnlyChecked, femaleOnlyChecked])
 
 
     return (
@@ -84,7 +90,7 @@ function Card() {
             </div>
 
             {users.map(user =>
-                <div className="card">
+                <div key={user.id} className="card">
                     <div className="img-container">
                         <img alt={user.name.first} src={user.picture.large} />
                     </div>
