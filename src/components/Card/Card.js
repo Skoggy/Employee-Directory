@@ -1,7 +1,32 @@
 import "./style.css";
 import React, { useEffect, useState } from 'react';
 import API from "../utils/API"
+import styled from 'styled-components'
 
+
+const FilterStyles = styled.div`
+display: grid;
+gap: 2rem;
+text-align: center;
+div{
+    font-size: 20px;
+}
+input {
+    margin-left: 50px;
+    margin-right: 10px;
+}
+`
+
+const EmployeeStyles = styled.div`
+display: grid;
+gap: 3rem;
+font-size: 20px;
+grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+img {
+    height: 200px;
+    width: 200px;
+}
+`
 
 function Card() {
 
@@ -57,16 +82,16 @@ function Card() {
             setUsers(allUsers)
         }
         else if (maleOnlyChecked === true) {
-            setUsers(maleArray)
+
             setMaleArray(maleArray.filter((user) => user.gender === "male"))
 
             setUsers(maleArray)
         }
         else if (femaleOnlyChecked === true) {
-            setUsers(femaleArray)
-            setFemaleArray(femaleArray.filter((user) => user.gender === "female"))
 
+            setFemaleArray(femaleArray.filter((user) => user.gender === "female"))
             setUsers(femaleArray)
+
         }
 
 
@@ -75,22 +100,25 @@ function Card() {
 
     return (
         <div>
-            <h3>Select if you would like your employees ordered alphabetically</h3>
-            <div>
-                <input checked={isCheckedAlpha} onChange={selectFilter} type="checkbox" /><label>Ascending alphabetically</label>
-            </div>
-            <div>
-                <input checked={reverseIsCheckedAlpha} onChange={selectReverseAlpha} type="checkbox" /><label>Decending alphabetically</label>
-            </div>
-            <div>
-                <input checked={maleOnlyChecked} onChange={selectMale} type="checkbox" /><label>Male Only</label>
-            </div>
-            <div>
-                <input checked={femaleOnlyChecked} onChange={selectFemale} type="checkbox" /><label>Female Only</label>
-            </div>
+            <FilterStyles>
+                <h3>Select if you would like your employees ordered alphabetically</h3>
+
+                <div>
+                    <input checked={isCheckedAlpha} onChange={selectFilter} type="checkbox" /><label>Ascending alphabetically</label>
+
+                    <input checked={reverseIsCheckedAlpha} onChange={selectReverseAlpha} type="checkbox" /><label>Decending alphabetically</label>
+
+                </div>
+                <h3>Select how you would like to filter your employees</h3>
+                <div>
+                    <input checked={maleOnlyChecked} onChange={selectMale} type="checkbox" /><label>Male Only</label>
+
+                    <input checked={femaleOnlyChecked} onChange={selectFemale} type="checkbox" /><label>Female Only</label>
+                </div>
+            </FilterStyles>
 
             {users.map(user =>
-                <div key={user.id} className="card">
+                <EmployeeStyles key={user.id} className="card">
                     <div className="img-container">
                         <img alt={user.name.first} src={user.picture.large} />
                     </div>
@@ -102,7 +130,7 @@ function Card() {
 
                     </div>
 
-                </div>)}
+                </EmployeeStyles>)}
         </div>
     );
 }
