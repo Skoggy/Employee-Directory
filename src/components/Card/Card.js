@@ -80,18 +80,19 @@ function Card() {
         if (maleOnlyChecked === false && femaleOnlyChecked === false) {
             setAllUsers(allUsers)
             setUsers(allUsers)
+
         }
         else if (maleOnlyChecked === true) {
 
             setMaleArray(maleArray.filter((user) => user.gender === "male"))
 
             setUsers(maleArray)
+
         }
         else if (femaleOnlyChecked === true) {
 
             setFemaleArray(femaleArray.filter((user) => user.gender === "female"))
             setUsers(femaleArray)
-
         }
 
 
