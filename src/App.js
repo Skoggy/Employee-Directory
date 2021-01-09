@@ -5,7 +5,7 @@ import React from 'react'
 import Wrapper from './components/Wrapper/index'
 
 
-import './App.css';
+
 
 function App() {
 
